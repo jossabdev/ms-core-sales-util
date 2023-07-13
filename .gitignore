@@ -1,0 +1,7 @@
+.classpath
+.factorypath
+.project
+target/
+.settings/
+!**/src/main/**
+!**/src/test/**
