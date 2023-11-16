@@ -1,13 +1,13 @@
 package io.jscode.util;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ public class SalesUtils {
 		T response;
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
-		mapper.setDateFormat(new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"));
+		//mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));		
 		String jsonStr;
 
 		try {
@@ -45,11 +45,14 @@ public class SalesUtils {
 		List<T> response;
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
+		//mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));	
+		CollectionType listType = mapper
+		        .getTypeFactory()
+				.constructCollectionType(ArrayList.class, clase);
 		try {
 			String jsonStr = mapper.writeValueAsString(request);
-			response = mapper.readValue(jsonStr, new TypeReference<List<T>>() {
-			});
-		} catch (JsonProcessingException e) {
+			response = mapper.readValue(jsonStr, listType);
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ExcepcionGenerica(e);
 		}
