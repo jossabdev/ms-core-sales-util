@@ -16,7 +16,7 @@
 	<version>${version}</version>
 
 	<properties>
-		<version>0.0.1-RELEASE</version>
+		<version>1.0.0-SNAPSHOT</version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
@@ -56,5 +56,13 @@
 			<version>2.10.1</version>
 		</dependency>
 	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/jossabdev/ms-core-sales-util</url>
+		</repository>
+	</distributionManagement>
 
 </project>
